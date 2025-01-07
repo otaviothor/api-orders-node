@@ -1,0 +1,40 @@
+@hostname = http://localhost:3000/api
+
+### get 
+GET {{hostname}} HTTP/1.1
+email: otavio@gmail.com
+
+### get 
+GET {{hostname}}/order HTTP/1.1
+email: otavio@gmail.com
+
+### post 
+POST {{hostname}}/order HTTP/1.1
+content-type: application/json
+email: otavio@gmail.com
+
+{
+	"products": [
+		{
+			"image": "https://images.unsplash.com/photo-1444881421460-d838c3b98f95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=889&q=80",
+			"price": "97.00",
+			"quantity": 1,
+			"title": "assumenda autem officia",
+			"id": "1"
+		},
+		{
+			"image": "https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
+			"price": "994.00",
+			"quantity": 2,
+			"title": "deserunt porro aut",
+			"id": "2"
+		},
+		{
+			"image": "https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+			"price": "803.00",
+			"quantity": 33,
+			"title": "magnam est et",
+			"id": "3"
+		}
+	]
+}
