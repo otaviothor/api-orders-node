@@ -24,6 +24,11 @@
     "arrow-parens": [0],
     "object-curly-spacing": ["warn", "always"],
     "array-bracket-spacing": ["warn", "always"],
-    "import/prefer-default-export": [0]
+    "import/prefer-default-export": [0],
+    "no-unused-vars": "off",
+    "spaced-comment": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-restricted-syntax": "off"
   }
 }
