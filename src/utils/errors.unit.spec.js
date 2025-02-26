@@ -6,7 +6,7 @@ import createError from 'http-errors';
 jest.mock(`./logger`);
 jest.mock(`http-errors`);
 
-fdescribe('Utils > Error', () => {
+describe('Utils > Error', () => {
   beforeEach(() => {});
 
   afterEach(() => {
