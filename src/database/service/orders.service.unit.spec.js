@@ -1,8 +1,10 @@
-import { buildError, buildOrders, buildUser } from 'test/builders';
+import { logger } from '@/utils/logger';
 import { Order } from '@/database/models/order.model';
-import { listOrders } from './orders.service';
 import { StatusCodes } from 'http-status-codes';
+import { buildError, buildOrder, buildOrders, buildUser } from 'test/builders';
+import { listOrders, saveOrder } from './orders.service';
 
+jest.mock('@/utils/logger');
 jest.mock('@/database/models/order.model');
 JSON.parse = jest.fn();
 
@@ -45,5 +47,32 @@ describe('Service > Orders', () => {
     jest.spyOn(Order, 'findAll').mockRejectedValue(error);
 
     expect(listOrders(user.id)).rejects.toEqual(error);
+  });
+
+  it('should reject with an error when saveOrder is executed without any data', () => {
+    const error = buildError(
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      'Failed to save order',
+    );
+
+    expect(saveOrder()).rejects.toEqual(error);
+  });
+
+  it('should save and return order', () => {
+    const user = buildUser();
+    const data = {
+      userid: user.id,
+      products: buildOrder(),
+    };
+    const order = {
+      ...data,
+      id: 1,
+    };
+
+    jest.spyOn(Order, 'create').mockResolvedValueOnce(order);
+
+    expect(saveOrder(data)).resolves.toEqual(order);
+    expect(logger.info).toHaveBeenCalledTimes(1);
+    expect(logger.info).toHaveBeenCalledWith('New order saved', { data });
   });
 });
