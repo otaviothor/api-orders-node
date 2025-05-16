@@ -6,8 +6,11 @@ import {
   buildReq,
   buildRes,
 } from 'test/builders';
-import { index } from './orders.controller';
+import { index, validate } from './orders.controller';
 import { StatusCodes } from 'http-status-codes';
+import * as validator from 'express-validator';
+
+jest.mock('express-validator');
 
 describe('Controllers > Orders', () => {
   it('should return status 200 with a list of orders', async () => {
@@ -47,5 +50,33 @@ describe('Controllers > Orders', () => {
     expect(res.json).not.toHaveBeenCalled();
     expect(next).toHaveBeenCalledTimes(1);
     expect(next).toHaveBeenCalledWith(error);
+  });
+
+  it('should build a list of errors', () => {
+    const method = 'create';
+    const existFn = jest
+      .fn()
+      .mockReturnValueOnce('Please provide a list of products');
+
+    jest.spyOn(validator, 'body').mockReturnValueOnce({
+      exists: existFn,
+    });
+
+    const errors = validate(method);
+
+    expect(errors).toHaveLength(1);
+    expect(errors).toEqual(['Please provide a list of products']);
+
+    expect(validator.body).toHaveBeenCalledTimes(1);
+    expect(validator.body).toHaveBeenCalledWith(
+      'products',
+      'Please provide a list of products',
+    );
+  });
+
+  it('should throw an error when an unknow method is provided', () => {
+    expect(() => {
+      validate('some unknow method');
+    }).toThrowError('Please provide a valid method name');
   });
 });
