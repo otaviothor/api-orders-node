@@ -1,4 +1,5 @@
-import * as service from '@/database/service';
+import * as validator from 'express-validator';
+import { StatusCodes } from 'http-status-codes';
 import {
   buildError,
   buildNext,
@@ -8,10 +9,7 @@ import {
   buildRes,
 } from 'test/builders';
 import { create, index, validate } from './orders.controller';
-import { StatusCodes } from 'http-status-codes';
-import * as validator from 'express-validator';
 import { validationResponse } from './utils';
-import { error } from 'winston';
 
 jest.mock('express-validator');
 jest.mock('./utils.js');
