@@ -1,8 +1,12 @@
 @hostname = http://localhost:3000/api
 
 ### get 
+GET {{hostname}}/products HTTP/1.1
+email: otavio2@gmail.com
+
+### get 
 GET {{hostname}} HTTP/1.1
-email: otavio@gmail.com
+email: otavio12@gmail.com
 
 ### get 
 GET {{hostname}}/order HTTP/1.1
@@ -11,7 +15,7 @@ email: otavio@gmail.com
 ### post 
 POST {{hostname}}/order HTTP/1.1
 content-type: application/json
-email: otavio@gmail.com
+email: otavio2@gmail.com
 
 {
 	"products": [
